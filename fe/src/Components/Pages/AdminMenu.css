@@ -1,0 +1,159 @@
+.admin-menu-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.admin-menu-page h1 {
+  margin-bottom: 20px;
+}
+
+.menu-form {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 32px;
+  background: #fafafa;
+}
+
+.menu-form h2 {
+  margin: 0 0 16px;
+  font-size: 16px;
+}
+
+.form-field {
+  margin-bottom: 14px;
+}
+
+.form-field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #444;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.form-error {
+  color: #d32f2f;
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.form-actions button[type="submit"] {
+  background: #ff6b35;
+  color: #fff;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.form-actions button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 9px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.menu-list-section h2 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.menu-list-empty {
+  color: #888;
+  font-size: 14px;
+}
+
+.admin-menu-error button {
+  margin-top: 8px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+}
+
+.admin-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-menu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 12px 14px;
+  gap: 12px;
+}
+
+.admin-menu-row-info h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+}
+
+.admin-menu-row-info p {
+  margin: 0 0 4px;
+  font-size: 13px;
+  color: #777;
+}
+
+.admin-menu-price {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff6b35;
+}
+
+.admin-menu-row-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.admin-menu-row-actions button {
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  background: #eee;
+}
+
+.delete-btn {
+  background: #ffebee !important;
+  color: #c62828;
+}
+
+.admin-menu-row-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
