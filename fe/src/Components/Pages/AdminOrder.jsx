@@ -11,7 +11,7 @@ const STATUS_LABEL = {
 
 const NEXT_STATUS = {
   CONFIRMED: ["COMPLETED", "CANCELLED"],
-  COMPLLETED: [],
+  COMPLETED: [],
   CANCELLED: [],
 };
 

@@ -11,7 +11,7 @@ export default function AdminMenu() {
   const [error, setError] = useState(null);
 
   const [form, setForm] = useState(EMPTY_FORM);
-  const [editingId, setEditingId] = useState(null); // null = mode tambah baru
+  const [editingId, setEditingId] = useState(null);
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState(null);
 
