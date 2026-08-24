@@ -62,6 +62,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterPage />} />
 
@@ -109,7 +110,6 @@ function App() {
           }
         />
 
-        {/* fallback: route yang nggak dikenal balik ke /menu */}
         <Route path="*" element={<Navigate to="/menu" replace />} />
       </Routes>
     </BrowserRouter>

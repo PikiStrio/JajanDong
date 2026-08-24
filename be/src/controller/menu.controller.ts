@@ -44,11 +44,13 @@ export const getMenuById = async (req: Request, res: Response) => {
 export const createMenu = async (req: Request, res: Response) => {
     try {
         const { name, description, price } = req.body;
+        const image = req.file?.filename;
 
         const menu = await menuService.createMenu(
             name,
             description,
-            price
+            Number(price),
+            image
         );
 
         res.status(201).json({
@@ -57,9 +59,10 @@ export const createMenu = async (req: Request, res: Response) => {
             message: "Menu created successfully"
         });
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             success: false,
-            message: "Failed to create menu"
+            message: error
         });
     }
 };

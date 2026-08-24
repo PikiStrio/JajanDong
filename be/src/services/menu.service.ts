@@ -17,12 +17,15 @@ export const getMenuById = async (id: number) => {
     });
 };
 
-export const createMenu = async (name: string, description: string, price: number) => {
+export const createMenu = async (name: string, description: string, price: number, image?: string) => {
+    const imagePath = image ? `/uploads/menus/${image}` : null;
+
     return await prisma.menu.create({
         data: {
             name,
             description,
-            price
+            price,
+            image: imagePath
         }
     });
 };

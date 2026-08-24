@@ -28,6 +28,8 @@ export default function Navbar() {
       <div className="navbar-brand">JajanDong</div>
 
       <div className="navbar-links">
+        {!isAdmin && (
+          <>
         <NavLink
           to="/menu"
           className={({ isActive }) =>
@@ -45,7 +47,8 @@ export default function Navbar() {
         >
           Riwayat Pesanan
         </NavLink>
-
+        </>
+      )}
         {isAdmin && (
           <>
             <NavLink

@@ -41,6 +41,7 @@ export type MenuMinAggregateOutputType = {
   name: string | null
   description: string | null
   price: number | null
+  image: string | null
   createdAt: Date | null
   deletedAt: Date | null
 }
@@ -50,6 +51,7 @@ export type MenuMaxAggregateOutputType = {
   name: string | null
   description: string | null
   price: number | null
+  image: string | null
   createdAt: Date | null
   deletedAt: Date | null
 }
@@ -59,6 +61,7 @@ export type MenuCountAggregateOutputType = {
   name: number
   description: number
   price: number
+  image: number
   createdAt: number
   deletedAt: number
   _all: number
@@ -80,6 +83,7 @@ export type MenuMinAggregateInputType = {
   name?: true
   description?: true
   price?: true
+  image?: true
   createdAt?: true
   deletedAt?: true
 }
@@ -89,6 +93,7 @@ export type MenuMaxAggregateInputType = {
   name?: true
   description?: true
   price?: true
+  image?: true
   createdAt?: true
   deletedAt?: true
 }
@@ -98,6 +103,7 @@ export type MenuCountAggregateInputType = {
   name?: true
   description?: true
   price?: true
+  image?: true
   createdAt?: true
   deletedAt?: true
   _all?: true
@@ -194,6 +200,7 @@ export type MenuGroupByOutputType = {
   name: string
   description: string
   price: number
+  image: string | null
   createdAt: Date
   deletedAt: Date | null
   _count: MenuCountAggregateOutputType | null
@@ -226,6 +233,7 @@ export type MenuWhereInput = {
   name?: Prisma.StringFilter<"Menu"> | string
   description?: Prisma.StringFilter<"Menu"> | string
   price?: Prisma.FloatFilter<"Menu"> | number
+  image?: Prisma.StringNullableFilter<"Menu"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Menu"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Menu"> | Date | string | null
   orderItems?: Prisma.OrderItemListRelationFilter
@@ -236,6 +244,7 @@ export type MenuOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
@@ -249,6 +258,7 @@ export type MenuWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Menu"> | string
   description?: Prisma.StringFilter<"Menu"> | string
   price?: Prisma.FloatFilter<"Menu"> | number
+  image?: Prisma.StringNullableFilter<"Menu"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Menu"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Menu"> | Date | string | null
   orderItems?: Prisma.OrderItemListRelationFilter
@@ -259,6 +269,7 @@ export type MenuOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.MenuCountOrderByAggregateInput
@@ -276,6 +287,7 @@ export type MenuScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Menu"> | string
   description?: Prisma.StringWithAggregatesFilter<"Menu"> | string
   price?: Prisma.FloatWithAggregatesFilter<"Menu"> | number
+  image?: Prisma.StringNullableWithAggregatesFilter<"Menu"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Menu"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Menu"> | Date | string | null
 }
@@ -284,6 +296,7 @@ export type MenuCreateInput = {
   name: string
   description: string
   price: number
+  image?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutMenuInput
@@ -294,6 +307,7 @@ export type MenuUncheckedCreateInput = {
   name: string
   description: string
   price: number
+  image?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutMenuInput
@@ -303,6 +317,7 @@ export type MenuUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   orderItems?: Prisma.OrderItemUpdateManyWithoutMenuNestedInput
@@ -313,6 +328,7 @@ export type MenuUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutMenuNestedInput
@@ -323,6 +339,7 @@ export type MenuCreateManyInput = {
   name: string
   description: string
   price: number
+  image?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
 }
@@ -331,6 +348,7 @@ export type MenuUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -340,6 +358,7 @@ export type MenuUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -349,6 +368,7 @@ export type MenuCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
@@ -363,6 +383,7 @@ export type MenuMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
@@ -372,6 +393,7 @@ export type MenuMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
@@ -394,6 +416,10 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type MenuCreateNestedOneWithoutOrderItemsInput = {
   create?: Prisma.XOR<Prisma.MenuCreateWithoutOrderItemsInput, Prisma.MenuUncheckedCreateWithoutOrderItemsInput>
   connectOrCreate?: Prisma.MenuCreateOrConnectWithoutOrderItemsInput
@@ -412,6 +438,7 @@ export type MenuCreateWithoutOrderItemsInput = {
   name: string
   description: string
   price: number
+  image?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
 }
@@ -421,6 +448,7 @@ export type MenuUncheckedCreateWithoutOrderItemsInput = {
   name: string
   description: string
   price: number
+  image?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
 }
@@ -445,6 +473,7 @@ export type MenuUpdateWithoutOrderItemsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -454,6 +483,7 @@ export type MenuUncheckedUpdateWithoutOrderItemsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -494,6 +524,7 @@ export type MenuSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   description?: boolean
   price?: boolean
+  image?: boolean
   createdAt?: boolean
   deletedAt?: boolean
   orderItems?: boolean | Prisma.Menu$orderItemsArgs<ExtArgs>
@@ -505,6 +536,7 @@ export type MenuSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   description?: boolean
   price?: boolean
+  image?: boolean
   createdAt?: boolean
   deletedAt?: boolean
 }, ExtArgs["result"]["menu"]>
@@ -514,6 +546,7 @@ export type MenuSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   description?: boolean
   price?: boolean
+  image?: boolean
   createdAt?: boolean
   deletedAt?: boolean
 }, ExtArgs["result"]["menu"]>
@@ -523,11 +556,12 @@ export type MenuSelectScalar = {
   name?: boolean
   description?: boolean
   price?: boolean
+  image?: boolean
   createdAt?: boolean
   deletedAt?: boolean
 }
 
-export type MenuOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "createdAt" | "deletedAt", ExtArgs["result"]["menu"]>
+export type MenuOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "image" | "createdAt" | "deletedAt", ExtArgs["result"]["menu"]>
 export type MenuInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orderItems?: boolean | Prisma.Menu$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.MenuCountOutputTypeDefaultArgs<ExtArgs>
@@ -545,6 +579,7 @@ export type $MenuPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: string
     description: string
     price: number
+    image: string | null
     createdAt: Date
     deletedAt: Date | null
   }, ExtArgs["result"]["menu"]>
@@ -975,6 +1010,7 @@ export interface MenuFieldRefs {
   readonly name: Prisma.FieldRef<"Menu", 'String'>
   readonly description: Prisma.FieldRef<"Menu", 'String'>
   readonly price: Prisma.FieldRef<"Menu", 'Float'>
+  readonly image: Prisma.FieldRef<"Menu", 'String'>
   readonly createdAt: Prisma.FieldRef<"Menu", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Menu", 'DateTime'>
 }

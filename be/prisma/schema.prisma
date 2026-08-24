@@ -28,6 +28,7 @@ model Menu {
   name String
   description String
   price Float
+  image String?
   orderItems OrderItem[]
 
   createdAt DateTime @default(now())
