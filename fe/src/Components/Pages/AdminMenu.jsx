@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import "./AdminMenu.css";
 
 const API_URL = "http://localhost:3000/api";
+const BASE_URL = "http://localhost:3000";
 
 const EMPTY_FORM = { name: "", description: "", price: "" };
+
+const getImageUrl = (value) => {
+  if (!value) return "";
+  if (value.startsWith("http://") || value.startsWith("https://")) return value;
+  return `${BASE_URL}${value}`;
+};
 
 export default function AdminMenu() {
   const [menus, setMenus] = useState([]);
@@ -11,6 +19,9 @@ export default function AdminMenu() {
   const [error, setError] = useState(null);
 
   const [form, setForm] = useState(EMPTY_FORM);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const [editingImageUrl, setEditingImageUrl] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState(null);
@@ -21,8 +32,16 @@ export default function AdminMenu() {
     getMenus();
   }, []);
 
+  // cleanup object URL when preview changes
+  useEffect(() => {
+    return () => {
+      if (imagePreviewUrl) {
+        URL.revokeObjectURL(imagePreviewUrl);
+      }
+    };
+  }, [imagePreviewUrl]);
+
   const authHeaders = () => ({
-    "Content-Type": "application/json",
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   });
 
@@ -54,6 +73,9 @@ export default function AdminMenu() {
   const startCreate = () => {
     setEditingId(null);
     setForm(EMPTY_FORM);
+    setImageFile(null);
+    setImagePreviewUrl(null);
+    setEditingImageUrl(null);
     setFormError(null);
   };
 
@@ -64,6 +86,9 @@ export default function AdminMenu() {
       description: menu.description || "",
       price: String(menu.price),
     });
+    setImageFile(null);
+    setImagePreviewUrl(null);
+    setEditingImageUrl(menu.image || null);
     setFormError(null);
   };
 
@@ -87,11 +112,13 @@ export default function AdminMenu() {
 
     setSaving(true);
 
-    const payload = {
-      name: form.name.trim(),
-      description: form.description.trim(),
-      price: Number(form.price),
-    };
+    const formData = new FormData();
+    formData.append("name", form.name.trim());
+    formData.append("description", form.description.trim());
+    formData.append("price", String(Number(form.price)));
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
 
     try {
       const url = editingId ? `${API_URL}/menu/${editingId}` : `${API_URL}/menu`;
@@ -100,7 +127,7 @@ export default function AdminMenu() {
       const response = await fetch(url, {
         method,
         headers: authHeaders(),
-        body: JSON.stringify(payload),
+        body: formData,
       });
 
       const data = await response.json();
@@ -119,17 +146,53 @@ export default function AdminMenu() {
         setMenus((current) => [...current, data.data]);
       }
 
+      await Swal.fire({
+        icon: "success",
+        title: editingId ? "Menu berhasil diperbarui" : "Menu berhasil ditambahkan",
+        timer: 1400,
+        showConfirmButton: false,
+      });
+
       startCreate(); // reset form ke mode tambah baru
     } catch (err) {
       console.error("SAVE MENU ERROR:", err);
       setFormError(err.message || "Terjadi kesalahan saat menyimpan menu");
+      Swal.fire({
+        icon: "error",
+        title: "Gagal menyimpan menu",
+        text: err.message || "Terjadi kesalahan saat menyimpan menu",
+      });
     } finally {
       setSaving(false);
     }
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0] || null;
+    setImageFile(file);
+    setEditingImageUrl(null);
+
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setImagePreviewUrl(url);
+    } else {
+      setImagePreviewUrl(null);
+    }
+  };
+
   const handleDelete = async (menuId) => {
-    if (!window.confirm("Yakin mau hapus menu ini?")) return;
+    const result = await Swal.fire({
+      title: "Yakin mau hapus menu ini?",
+      text: "Menu yang dihapus tidak bisa dikembalikan.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Ya, hapus",
+      cancelButtonText: "Batal",
+    });
+
+    if (!result.isConfirmed) return;
 
     setDeletingId(menuId);
 
@@ -141,8 +204,6 @@ export default function AdminMenu() {
 
       const data = await response.json();
 
-      console.log(data);
-
       if (!response.ok) {
         throw new Error(data.message || "Gagal menghapus menu");
       }
@@ -152,9 +213,20 @@ export default function AdminMenu() {
       if (editingId === menuId) {
         startCreate();
       }
+
+      await Swal.fire({
+        icon: "success",
+        title: "Menu berhasil dihapus",
+        timer: 1200,
+        showConfirmButton: false,
+      });
     } catch (err) {
       console.error("DELETE MENU ERROR:", err);
-      alert(err.message || "Gagal menghapus menu");
+      Swal.fire({
+        icon: "error",
+        title: "Gagal menghapus menu",
+        text: err.message || "Gagal menghapus menu",
+      });
     } finally {
       setDeletingId(null);
     }
@@ -185,6 +257,26 @@ export default function AdminMenu() {
             placeholder="Nasi goreng dengan telur, ayam, dan kerupuk"
             rows={3}
           />
+        </div>
+
+        <div className="form-field">
+          <label>Gambar</label>
+          <input type="file" accept="image/*" onChange={handleImageChange} />
+          {(imagePreviewUrl || editingImageUrl) && (
+            <div className="image-preview">
+              <img
+                src={
+                  imagePreviewUrl
+                    ? imagePreviewUrl
+                    : editingImageUrl
+                    ? getImageUrl(editingImageUrl)
+                    : undefined
+                }
+                alt="preview"
+                style={{ maxWidth: 200, marginTop: 8 }}
+              />
+            </div>
+          )}
         </div>
 
         <div className="form-field">

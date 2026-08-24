@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import "./Menu.css";
 
 const API_URL = "http://localhost:3000/api";
+const BASE_URL = "http://localhost:3000";
+
+const getImageUrl = (value) => {
+  if (!value) return "";
+  if (value.startsWith("http://") || value.startsWith("https://")) return value;
+  return `${BASE_URL}${value}`;
+};
 
 export default function Menu() {
   const [menus, setMenus] = useState([]);
@@ -121,7 +129,13 @@ export default function Menu() {
       setCart([]);
     } catch (err) {
       console.error("CHECKOUT ERROR:", err);
-      setCheckoutError(err.message || "Terjadi kesalahan saat checkout");
+      const message = err.message || "Terjadi kesalahan saat checkout";
+      setCheckoutError(message);
+      Swal.fire({
+        icon: "error",
+        title: "Checkout gagal",
+        text: message,
+      });
     } finally {
       setCheckingOut(false);
     }
@@ -163,7 +177,13 @@ export default function Menu() {
           <div className="menu-grid">
             {menus.map((menu) => (
               <div className="menu-card" key={menu.id}>
-                <div className="menu-image">🌯🍱🍜🍲</div>
+                  <div className="menu-image">
+                    {menu.image ? (
+                      <img src={getImageUrl(menu.image)} alt={menu.name} />
+                    ) : (
+                      <div className="menu-placeholder">🌯🍱🍜🍲</div>
+                    )}
+                  </div>
 
                 <div className="menu-content">
                   <h2>{menu.name}</h2>

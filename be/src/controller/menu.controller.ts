@@ -70,14 +70,15 @@ export const createMenu = async (req: Request, res: Response) => {
 export const updateMenu = async (req: Request, res: Response) => {
     try {
         const id = Number(req.params.id);
-
         const { name, description, price } = req.body;
+        const image = req.file?.filename;
 
         const menu = await menuService.updateMenu(
             id,
             name,
             description,
-            price
+            Number(price),
+            image
         );
 
         res.status(200).json({

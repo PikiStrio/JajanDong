@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import "./AdminOrder.css";
 
 const API_URL = "http://localhost:3000/api";
@@ -82,7 +83,11 @@ export default function AdminOrders() {
       );
     } catch (err) {
       console.error("UPDATE STATUS ERROR:", err);
-      alert(err.message || "Gagal mengubah status order");
+      Swal.fire({
+        icon: "error",
+        title: "Gagal mengubah status",
+        text: err.message || "Gagal mengubah status order",
+      });
     } finally {
       setUpdatingId(null);
     }

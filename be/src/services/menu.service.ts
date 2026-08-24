@@ -30,7 +30,9 @@ export const createMenu = async (name: string, description: string, price: numbe
     });
 };
 
-export const updateMenu = async (id: number, name: string, description: string, price: number) => {
+export const updateMenu = async (id: number, name: string, description: string, price: number, image?: string) => {
+    const imagePath = image ? `/uploads/menus/${image}` : undefined;
+
     return await prisma.menu.update({
         where: {
             id,
@@ -39,7 +41,8 @@ export const updateMenu = async (id: number, name: string, description: string, 
         data: {
             name,
             description,
-            price
+            price,
+            ...(imagePath ? { image: imagePath } : {})
         }
     });
 };
